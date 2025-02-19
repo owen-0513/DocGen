@@ -53,7 +53,7 @@ def generate_answer(question):
             )},
             {"role": "user", "content": f"請以生動的方式回答以下問題：{question}"}
         ],
-        "max_tokens": 1000,
+        "max_tokens": 700,
         "temperature": 1.2,
         "top_p": 0.95,
         "frequency_penalty": 0.2,
