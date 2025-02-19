@@ -26,8 +26,7 @@ os.environ["SSL_CERT_FILE"] = certifi.where()
 
 app = Flask(__name__)
 
-# ✅ 設定 CORS，允許 Netlify 前端存取
-CORS(app, resources={r"/*": {"origins": "https://clever-semolina-03e5ef.netlify.app"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # AI 產生回答
 def generate_answer(question):
