@@ -19,13 +19,15 @@ if not OPENAI_API_KEY:
 OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
 
 # 確保輸出目錄存在
-SAVE_PATH = r"D:\play\AIWORD\AIP"
+SAVE_PATH = os.path.join(os.getcwd(), "generated_docs")
 os.makedirs(SAVE_PATH, exist_ok=True)
 
 os.environ["SSL_CERT_FILE"] = certifi.where()
 
 app = Flask(__name__)
-CORS(app)
+
+# ✅ 設定 CORS，允許 Netlify 前端存取
+CORS(app, resources={r"/*": {"origins": "https://clever-semolina-03e5ef.netlify.app"}})
 
 # AI 產生回答
 def generate_answer(question):
@@ -123,4 +125,5 @@ def askQuestion():
         return jsonify({"error": f"❌ 伺服器錯誤：{str(e)}"}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Render 需要使用環境變數的 PORT
+    app.run(host="0.0.0.0", port=port)
